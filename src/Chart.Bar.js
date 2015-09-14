@@ -102,6 +102,8 @@
 
 				var datasetObject = {
 					label : dataset.label || null,
+					highlightFill : dataset.highlightFill || dataset.fillColor,
+					highlightStroke : dataset.highlightStroke || dataset.strokeColor,
 					fillColor : dataset.fillColor,
 					strokeColor : dataset.strokeColor,
 					bars : []

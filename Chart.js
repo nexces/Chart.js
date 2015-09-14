@@ -922,7 +922,12 @@
 				// If we have multiple datasets, show a MultiTooltip for all of the data points at that index
 				if (this.datasets && this.datasets.length > 1) {
 					var dataArray,
-						dataIndex;
+						dataIndex,
+						datasetLabels = [];
+
+					helpers.each(this.datasets, function(dataset){
+						datasetLabels.push(dataset.label);
+					});
 
 					for (var i = this.datasets.length - 1; i >= 0; i--) {
 						dataArray = this.datasets[i].points || this.datasets[i].bars || this.datasets[i].segments;
@@ -980,6 +985,7 @@
 					new Chart.MultiTooltip({
 						x: medianPosition.x,
 						y: medianPosition.y,
+						datasetLabels: datasetLabels,
 						xPadding: this.options.tooltipXPadding,
 						yPadding: this.options.tooltipYPadding,
 						xOffset: this.options.tooltipXOffset,
@@ -1375,12 +1381,13 @@
 				this.y = this.chart.height - halfHeight;
 			}
 
+			// Removed as it seems to be buggy
 			//Decide whether to align left or right based on position on canvas
-			if (this.x > this.chart.width/2){
-				this.x -= this.xOffset + this.width;
-			} else {
-				this.x += this.xOffset;
-			}
+			// if (this.x > this.chart.width/2){
+			// 	this.x -= this.xOffset + this.width;
+			// } else {
+			// 	this.x += this.xOffset;
+			// }
 
 
 		},
@@ -2106,6 +2113,8 @@
 
 				var datasetObject = {
 					label : dataset.label || null,
+					highlightFill : dataset.highlightFill || dataset.fillColor,
+					highlightStroke : dataset.highlightStroke || dataset.strokeColor,
 					fillColor : dataset.fillColor,
 					strokeColor : dataset.strokeColor,
 					bars : []
